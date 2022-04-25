@@ -1,0 +1,66 @@
+; Encode the equivalence of gcd1 and gcd2 by EUF+LIA
+
+;int gcd1(int a, int b)
+;{
+;int g, g1, a1; 
+;if (b == 0) g1 = a; 
+;else {
+;  a1 = a%b;
+;  g1 = gcd1(b, a1);}
+;return g1; 
+;}
+
+;int gcd2(int x, int y)
+;{
+;int z, z1;
+;z = x; 
+;if (y > 0) {
+;   z1 = gcd2(y, z%y);
+;return z1;}
+;return z; 
+;}
+
+; function declarations
+(declare-fun gcd1 (Int Int)  Int)
+(declare-fun gcd2 (Int Int)  Int)
+(declare-fun mod (Int Int)  Int)
+
+; variable declarations
+(declare-fun a () Int)
+(declare-fun b () Int)
+(declare-fun g () Int)
+(declare-fun a1 () Int)
+(declare-fun g1 () Int)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun z () Int)
+(declare-fun z1 () Int)
+
+(assert 
+(and 
+
+; phi_{P1} 
+(or 
+(and (= b 0) (= g1 a))
+(and 
+(> b 0) (= a1 (mod a b)) (= g1 (gcd1 b a1))
+)
+)
+(= g1 (gcd1 a b))
+
+; phi_{P2}
+(= z x)
+(=> (> y 0) (and (= z1 (gcd2 y (mod z y))) (= (gcd2 x y) z1)) )
+(=> (= y 0) (= (gcd2 x y) z))
+
+; equivalence checking
+(= a x) (= b y) 
+; the induction step
+(> b 0) 
+(= (gcd1 b (mod a b)) (gcd2 y (mod x y)))
+(not (= (gcd1 a b) (gcd2 x y)))
+)
+)
+
+(check-sat)
+(get-model)

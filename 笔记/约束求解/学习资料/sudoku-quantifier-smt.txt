@@ -1,0 +1,72 @@
+; function declarations
+(declare-fun p (Int Int Int) Bool)
+
+(assert 
+(and 
+
+; predetermined numbers in cells
+;(p 1 3 2) (p 2 1 2) (p 2 4 4) (p 3 2 3)
+(p 1 3 5)(p 1 4 3)(p 2 1 8)(p 2 8 2) (p 3 2 7)(p 3 5 1)(p 3 7 5)(p 4 1 4)(p 4 6 5)(p 4 7 3)
+
+; all p(i, j, k) = false, except for all entries 1 <= i,j,k<=9 
+(forall 
+((i (Int))(j (Int)) (k (Int)))
+(=> 
+(or (< i 1) (< 9 i) (< j 1) (< 9 j) (< k 1) (< 9 k) ) 
+ (not (p i j k))
+)
+)
+
+
+; exactly one number is put on each cell.
+(forall 
+((i (Int))(j (Int)))
+(=> 
+(and (<= 1 i) (<= i 9) (<= 1 j) (<= j 9)) 
+(exists ((k (Int)))
+(and (<= 1 k) (<= k 9) (p i j k) 
+(forall ((k1 (Int))) (=> (and (<= 1 k1) (<= k1 9) (not (= k k1) )) (not (p i j k1))) )
+)
+)
+)
+)
+
+; each of 1,2,3,...,9 appears in each row
+(forall 
+((k (Int))(i (Int)))
+(=> 
+(and (<= 1 k) (<= k 9) (<= 1 i) (<= i 9)) 
+(exists ((j (Int)))
+(and (<= 1 j) (<= j 9) (p i  j  k)) 
+)
+)
+)
+
+
+; each of 1,2,3,...,9 appears in each column
+(forall 
+((k (Int))(j (Int)))
+(=> 
+(and (<= 1 k) (<= k 9) (<= 1 j) (<= j 9)) 
+(exists ((i (Int)))
+(and (<= 1 i) (<= i 9) (p i j k)) 
+)
+)
+)
+
+; each of 1,2,3,...,9 appears in each 3*3 subgrid
+(forall 
+((k (Int))(i (Int))(j (Int)))
+(=> 
+(and (<= 1 k) (<= k 9) (<= 0 i) (<= i 2) (<= 0 j) (<= j 2)) 
+(exists ((i1 (Int)) (j1 (Int)))
+(and (<= 1 i1) (<= i1 3) (<= 1 j1) (<= j1 3) (p (+ (* 3 i) i1) (+ (* 3 j) j1) k)) 
+)
+)
+)
+
+)
+)
+
+(check-sat)
+(get-model)
