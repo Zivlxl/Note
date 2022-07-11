@@ -21,4 +21,3 @@
       可以发现，之所以会出现base，是因为框中参数在作妖，即默认启动base，症状有了，接下来对症下药就行！！
 
       step2：使用 conda config --set auto_activate_base False 命令将其设置为False即可
-      

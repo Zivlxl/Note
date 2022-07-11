@@ -1,0 +1,1 @@
+# Novel Techniques for Achieving High At-Speed Transition Fault Test Coverage for Motorola’s Microprocessors Based on PowerPC Instruction Set Architecture
