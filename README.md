@@ -1,8 +1,5 @@
 # Note
 
-A
-B
-B
-
-这是一个笔记
+#### 介绍
+just note of mine
 

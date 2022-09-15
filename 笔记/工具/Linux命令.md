@@ -12,9 +12,9 @@ set nu 显示行号
 
 #### 文件多开
 
-sp hello.c 在文件下方打开一个新的文件hello.c
+`sp hello.c `在文件下方打开一个新的文件hello.c
 
-vsplit hello.c 在文件右边打开一个新的文件hello.c
+`vsplit hello.c `在文件右边打开一个新的文件hello.c
 
 打开一个文件后，命令模式下输入e file，打开另一个文件
 
@@ -36,26 +36,26 @@ vsplit hello.c 在文件右边打开一个新的文件hello.c
 
 ##### zip
 
-1. zip -r myfile.zip ./*
+1. `zip -r myfile.zip ./*`
    将当前目录下的所有文件和文件夹全部压缩成myfile.zip文件,－r表示递归压缩子目录下所有文件.
-2. zip -d myfile.zip smart.txt
+2. `zip -d myfile.zip smart.txt`
    删除压缩文件中smart.txt文件
-3. zip -m myfile.zip ./rpm_info.txt
+3. `zip -m myfile.zip ./rpm_info.txt`
    向压缩文件中myfile.zip中添加rpm_info.txt文件
 
 ##### unzip
 
-1. unzip yasuo.zip
+1. `unzip yasuo.zip`
 
-2. unzip -v large.zip
+2. `unzip -v large.zip`
 
    不解压缩，查看文件
 
-3. unzip -t large.zip
+3. `unzip -t large.zip`
 
    验证一下这个压缩文件是否下载完全
 
-4. unzip -j music.zip
+4. `unzip -j music.zip`
 
    我用-v选项发现music.zip压缩文件里面有很多目录和子目录，并且子目录中其实都是歌曲mp3文件，我想把这些文件都下载到第一级目录，而不是一层一层建目录
 
@@ -63,27 +63,27 @@ vsplit hello.c 在文件右边打开一个新的文件hello.c
 
 ##### gzip
 
-1. gzip file1
+1. `gzip file1`
 
    压缩文件
 
-2. gzip -r file.gz file1 file2 dir/
+2. `gzip -r file.gz file1 file2 dir/`
 
    -r表示递归压缩
 
-3. gzip -dv file.gz
+3. `gzip -dv file.gz`
 
    解压，-d表示解压，-v表示显示文件名和压缩比
 
-4. gzip -l file.gz
+4. `gzip -l file.gz`
 
    显示压缩包的内容
 
-5. gzip -t 
+5. `gzip -t `
 
    检测文件完整性
 
-6. gzip -num file
+6. `gzip -num file`
 
     用指定的数字 num 调整压缩的速度，-1 或 –fast 表示最快压缩方法（低压缩比），-9 或 –best 表示最慢压缩方法（高压缩比）系统缺省值为 6
 
@@ -93,13 +93,13 @@ vsplit hello.c 在文件右边打开一个新的文件hello.c
 
 bzip2和gzip基本相同
 
-1. bzip2 -k file
+1. `bzip2 -k file`
 
    保留原文件压缩
 
 ##### bunzip2
 
-语法：bunzip2 [-fkLsvV].bz2压缩文件
+语法：`bunzip2 [-fkLsvV].bz2`压缩文件
 
 参数：
 
@@ -173,27 +173,27 @@ tar[必要参数][选择参数][文件]
 
 ##### .tar
 
-压缩：tar -cvf file.tar file1 file2
+压缩：`tar -cvf file.tar file1 file2`
 
-解压：tar -xvf 
+解压：`tar -xvf `
 
 ##### .tar.gz
 
-压缩：tar -zcvf file.tar.gz file1 file2
+压缩：`tar -zcvf file.tar.gz file1 file2`
 
-解压：tar -zxvf file.tar.gz
+解压：`tar -zxvf file.tar.gz`
 
 ##### .tar.bz2/bz
 
-压缩：tar -jcvf file.tar.bz2 file1 file2
+压缩：`tar -jcvf file.tar.bz2 file1 file2`
 
-解压：tar -jxvf file.tar.bz2
+解压：`tar -jxvf file.tar.bz2`
 
 ##### .tar.Z
 
-压缩：tar -Zcvf file.tar.Z file1 file2
+压缩：`tar -Zcvf file.tar.Z file1 file2`
 
-解压：tar -Zxvf file.tar.Z
+解压：`tar -Zxvf file.tar.Z`
 
 ——————————————————————————————
 
@@ -212,21 +212,29 @@ tar[必要参数][选择参数][文件]
 
 1. 查看当前文件夹中文件数量
 
-   ls -l | grep "^-" | wc -l
+   `ls -l | grep "^-" | wc -l`
 
 2. 查看当前文件夹中文件数量，包含子目录中的文件
 
-   ls -lR | grep "^-" | wc -l
+   `ls -lR | grep "^-" | wc -l`
 
 3. 统计当前目录中文件夹的数量
 
-   ls -l | grep "^d" | wc -l
+   `ls -l | grep "^d" | wc -l`
 
 4. 统计当前目录中文件夹的数量，包含子目录中文件夹
 
-   ls -lR |grep "^d" | wc -l
+   `ls -lR |grep "^d" | wc -l`
 
 5. 过滤查询
 
-   ls -lR *.py | grep "^-" | wc -l
+   `ls -lR *.py | grep "^-" | wc -l`
 
+
+
+### 查找目录下的所有文件中是否含有某个字符串
+
+1. `grep -rn "target string" * `  # -r 表示递归查找，-n 表示显示行号，*表示当前目录下的所有文件、也可以是某个文件名
+2. `find . | xargs grep "target string"`
+3. `find . -exec grep "target string" {}\;`
+4. `find / -name "target string"`
